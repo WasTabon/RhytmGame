@@ -10,5 +10,5 @@ EditorBuildSettings:
     guid: 06b1861bb7868f3469438bb46d4574b1
   - enabled: 1
     path: Assets/RhytmGame/Scenes/Game.unity
-    guid: 626f5fb44e1afbe45ad6ea3a9507246b
+    guid: 162d0af138eac634d9ab73447cc37d7f
   m_configObjects: {}

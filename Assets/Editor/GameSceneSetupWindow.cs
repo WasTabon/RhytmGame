@@ -50,13 +50,15 @@ public class GameSceneSetupWindow : EditorWindow
         var fadePanel = CreateFadePanel(targetCanvas.transform);
         var debugPanel = CreateDebugPanel(targetCanvas.transform);
 
-        var audioManagerGO = new GameObject("AudioManager");
+        var audioManagerGO = new GameObject("MusicManager");
         var audioSource = audioManagerGO.AddComponent<AudioSource>();
-        audioSource.playOnAwake = true;
+        audioSource.playOnAwake = false;
         audioSource.loop = true;
+        var musicManager = audioManagerGO.AddComponent<MusicManager>();
+        SetPrivateField(musicManager, "audioSource", audioSource);
         var audioAnalyzer = audioManagerGO.AddComponent<AudioAnalyzer>();
         SetPrivateField(audioAnalyzer, "audioSource", audioSource);
-        Undo.RegisterCreatedObjectUndo(audioManagerGO, "Create AudioManager");
+        Undo.RegisterCreatedObjectUndo(audioManagerGO, "Create MusicManager");
 
         var initGO = new GameObject("GameSceneInit");
         var init = initGO.AddComponent<GameSceneInit>();
@@ -71,10 +73,23 @@ public class GameSceneSetupWindow : EditorWindow
         SetPrivateField(debugUI, "highBar", debugPanel.Find("HighBarContainer/HighBar").GetComponent<Image>());
         Undo.RegisterCreatedObjectUndo(debugUIGO, "Create AudioAnalyzerDebugUI");
 
+        var gameAreaGO = new GameObject("GameArea");
+        gameAreaGO.transform.position = Vector3.zero;
+        Undo.RegisterCreatedObjectUndo(gameAreaGO, "Create GameArea");
+
+        var playerShapeGO = new GameObject("PlayerShape");
+        playerShapeGO.transform.SetParent(gameAreaGO.transform);
+        playerShapeGO.transform.localPosition = Vector3.zero;
+        var playerSpriteRenderer = playerShapeGO.AddComponent<SpriteRenderer>();
+        playerSpriteRenderer.sortingOrder = 10;
+        var playerShapeController = playerShapeGO.AddComponent<ShapeController>();
+        SetPrivateField(playerShapeController, "spriteRenderer", playerSpriteRenderer);
+        Undo.RegisterCreatedObjectUndo(playerShapeGO, "Create PlayerShape");
+
         Selection.activeGameObject = targetCanvas.gameObject;
         EditorUtility.SetDirty(targetCanvas);
 
-        Debug.Log("Game Scene UI created successfully! Don't forget to assign an AudioClip to AudioManager/AudioSource.");
+        Debug.Log("Game Scene UI created! Assign a MusicPlaylist to MusicManager, or an AudioClip directly to AudioSource.");
     }
 
     private void CreateBackground(Transform parent)
