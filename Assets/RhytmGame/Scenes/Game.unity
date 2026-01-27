@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 126559404}
   - component: {fileID: 126559406}
   - component: {fileID: 126559405}
+  - component: {fileID: 126559407}
   m_Layer: 0
   m_Name: PlayerShape
   m_TagString: Untagged
@@ -438,6 +439,9 @@ MonoBehaviour:
   spriteRenderer: {fileID: 126559406}
   shapeData: {fileID: 11400000, guid: 505435f42d44b5a409cdb1c97eeb83fb, type: 2}
   bladeColors: []
+  markerDistance: 2
+  markerSize: 0.3
+  markerSortingOrder: 15
   currentShapeIndex: 0
   bladeCount: 0
 --- !u!212 &126559406
@@ -492,6 +496,31 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &126559407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126559403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba157588f8c185b438908c1dfbca32e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSpeed: 35
+  clockwise: 1
+  enableSpeedReaction: 1
+  speedMultiplier: 4
+  enableScaleReaction: 1
+  baseScale: 0.8
+  scaleAmount: 0.5
+  enableDirectionChange: 1
+  highThreshold: 0.5
+  directionCooldown: 1
+  currentSpeed: 45.61252
+  currentScale: 0.9617393
+  currentDirection: 1
 --- !u!1 &228396604
 GameObject:
   m_ObjectHideFlags: 0
@@ -957,7 +986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00090ca5bb6581489046cf39f40d87d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 950828508}
+  audioSource: {fileID: 0}
   spectrumSize: 64
   fftWindow: 5
   lowRangeStart: 0
@@ -966,14 +995,14 @@ MonoBehaviour:
   midRangeEnd: 32
   highRangeStart: 32
   highRangeEnd: 64
-  lowMultiplier: 100
+  lowMultiplier: 7
   midMultiplier: 50
-  highMultiplier: 200
+  highMultiplier: 500
   useSmoothing: 1
   smoothingSpeed: 10
-  lowValue: 0
-  midValue: 0
-  highValue: 0
+  lowValue: 0.5244615
+  midValue: 0.1000612
+  highValue: 0.16020676
 --- !u!82 &950828508
 AudioSource:
   m_ObjectHideFlags: 0
