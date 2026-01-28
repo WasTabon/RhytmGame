@@ -514,7 +514,6 @@ MonoBehaviour:
   enableSpeedReaction: 1
   speedMultiplier: 4
   enableScaleReaction: 1
-  baseScale: 0.8
   scaleAmount: 0.5
   enableDirectionChange: 1
   highThreshold: 0.5
@@ -522,6 +521,7 @@ MonoBehaviour:
   currentSpeed: 45.61252
   currentScale: 0.9617393
   currentDirection: 1
+  initialScale: 0
 --- !u!1 &228396604
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,6 +1637,58 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1525290264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1525290266}
+  - component: {fileID: 1525290265}
+  m_Layer: 0
+  m_Name: ShapeScaler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1525290265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525290264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e66c1b52d15d804439ee8e5ab184eaf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerShape: {fileID: 126559404}
+  targetShape: {fileID: 624491866}
+  mainCamera: {fileID: 2128874143}
+  screenPadding: 0.15
+  spriteWorldSize: 5.12
+  calculatedScale: 0
+  screenWorldHeight: 0
+  screenWorldWidth: 0
+--- !u!4 &1525290266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1525290264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 653, y: 1392.9009, z: -0.0013542785}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1574508884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,7 +1856,7 @@ MonoBehaviour:
   targetShape: {fileID: 624491868}
   rotationController: {fileID: 126559407}
   perfectAngleTolerance: 5
-  goodAngleTolerance: 15
+  goodAngleTolerance: 7
   requireColorMatch: 1
   lastAngleDifference: 0
   lastColorsMatched: 0
@@ -2398,3 +2450,4 @@ SceneRoots:
   - {fileID: 1671856204}
   - {fileID: 1688386428}
   - {fileID: 2083245991}
+  - {fileID: 1525290266}

@@ -12,7 +12,6 @@ public class RotationController : MonoBehaviour
 
     [Header("Music Reaction - Scale (Low)")]
     [SerializeField] private bool enableScaleReaction = true;
-    [SerializeField] private float baseScale = 1f;
     [SerializeField] private float scaleAmount = 0.2f;
 
     [Header("Music Reaction - Direction (High)")]
@@ -24,10 +23,12 @@ public class RotationController : MonoBehaviour
     [SerializeField] private float currentSpeed;
     [SerializeField] private float currentScale;
     [SerializeField] private int currentDirection;
+    [SerializeField] private float initialScale;
 
     private AudioAnalyzer audioAnalyzer;
     private float lastDirectionChangeTime;
     private float currentRotation;
+    private bool initialScaleCaptured;
 
     private void Start()
     {
@@ -37,8 +38,14 @@ public class RotationController : MonoBehaviour
         currentRotation = transform.rotation.eulerAngles.z;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
+        if (!initialScaleCaptured)
+        {
+            initialScale = transform.localScale.x;
+            initialScaleCaptured = true;
+        }
+
         if (audioAnalyzer == null)
         {
             audioAnalyzer = AudioAnalyzer.Instance;
@@ -73,13 +80,8 @@ public class RotationController : MonoBehaviour
         if (enableScaleReaction && audioAnalyzer != null)
         {
             float lowValue = audioAnalyzer.LowValue;
-            currentScale = baseScale + (lowValue * scaleAmount);
+            currentScale = initialScale + (lowValue * scaleAmount * initialScale);
             transform.localScale = Vector3.one * currentScale;
-        }
-        else
-        {
-            currentScale = baseScale;
-            transform.localScale = Vector3.one * baseScale;
         }
     }
 
@@ -124,9 +126,9 @@ public class RotationController : MonoBehaviour
         currentDirection = clockwise ? -1 : 1;
     }
 
-    public void SetBaseScale(float scale)
+    public void RecaptureScale()
     {
-        baseScale = scale;
+        initialScale = transform.localScale.x;
     }
 
     public void StopRotation()
