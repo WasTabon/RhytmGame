@@ -86,10 +86,12 @@ public class GameModeSetupWindow : EditorWindow
     {
         var timerText = CreateTimerText();
         var progressText = CreateProgressText();
+        var missesText = CreateMissesText();
         var gameOverPanel = CreateGameOverPanel();
 
         CreateTimeAttackTimer(timerText);
         CreateLevelProgressUI(progressText);
+        CreateMissesUI(missesText);
         CreateGameOverUI(gameOverPanel);
 
         Debug.Log("Game Mode UI created successfully!");
@@ -136,6 +138,28 @@ public class GameModeSetupWindow : EditorWindow
         tmp.color = Color.white;
 
         Undo.RegisterCreatedObjectUndo(go, "Create ProgressText");
+        return tmp;
+    }
+
+    private TextMeshProUGUI CreateMissesText()
+    {
+        GameObject go = new GameObject("MissesText", typeof(RectTransform), typeof(TextMeshProUGUI));
+        go.transform.SetParent(targetCanvas.transform, false);
+
+        RectTransform rect = go.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(1, 1);
+        rect.anchorMax = new Vector2(1, 1);
+        rect.pivot = new Vector2(1, 1);
+        rect.anchoredPosition = new Vector2(-50, -120);
+        rect.sizeDelta = new Vector2(200, 60);
+
+        TextMeshProUGUI tmp = go.GetComponent<TextMeshProUGUI>();
+        tmp.text = "♥ 5 / 5";
+        tmp.fontSize = 36;
+        tmp.alignment = TextAlignmentOptions.Right;
+        tmp.color = new Color(1f, 0.3f, 0.3f);
+
+        Undo.RegisterCreatedObjectUndo(go, "Create MissesText");
         return tmp;
     }
 
@@ -233,6 +257,14 @@ public class GameModeSetupWindow : EditorWindow
         LevelProgressUI progress = go.AddComponent<LevelProgressUI>();
         SetPrivateField(progress, "progressText", progressText);
         Undo.RegisterCreatedObjectUndo(go, "Create LevelProgressUI");
+    }
+
+    private void CreateMissesUI(TextMeshProUGUI missesText)
+    {
+        GameObject go = new GameObject("MissesUI");
+        MissesUI misses = go.AddComponent<MissesUI>();
+        SetPrivateField(misses, "missesText", missesText);
+        Undo.RegisterCreatedObjectUndo(go, "Create MissesUI");
     }
 
     private void CreateGameOverUI(GameObject panel)

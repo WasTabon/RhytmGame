@@ -15,22 +15,29 @@ public class GameModeController : MonoBehaviour
     [Header("Time Attack Settings")]
     [SerializeField] private float timeAttackDuration = 60f;
 
+    [Header("Infinite Mode Settings")]
+    [SerializeField] private int maxMisses = 5;
+
     [Header("Current State (Read Only)")]
     [SerializeField] private GameMode currentMode;
     [SerializeField] private int currentLevelIndex;
     [SerializeField] private int shapesCompleted;
     [SerializeField] private int shapesRequired;
+    [SerializeField] private int currentMisses;
     [SerializeField] private bool isGameActive;
 
     public event Action OnGameStart;
     public event Action OnGameOver;
     public event Action OnLevelComplete;
     public event Action<int, int> OnShapeProgress;
+    public event Action<int, int> OnMissesChanged;
 
     public GameMode CurrentMode => currentMode;
     public int CurrentLevelIndex => currentLevelIndex;
     public int ShapesCompleted => shapesCompleted;
     public int ShapesRequired => shapesRequired;
+    public int CurrentMisses => currentMisses;
+    public int MaxMisses => maxMisses;
     public bool IsGameActive => isGameActive;
 
     private void Awake()
@@ -105,6 +112,7 @@ public class GameModeController : MonoBehaviour
     public void StartGame()
     {
         shapesCompleted = 0;
+        currentMisses = 0;
         isGameActive = true;
 
         if (scoreManager != null)
@@ -115,7 +123,7 @@ public class GameModeController : MonoBehaviour
         switch (currentMode)
         {
             case GameMode.Infinite:
-                Debug.Log("[GameModeController] Starting INFINITE mode");
+                Debug.Log($"[GameModeController] Starting INFINITE mode (max {maxMisses} misses)");
                 StartInfiniteMode();
                 break;
 
@@ -189,6 +197,19 @@ public class GameModeController : MonoBehaviour
                 if (shapesCompleted >= shapesRequired)
                 {
                     CompleteLevel();
+                }
+            }
+        }
+        else if (result == LockResult.Miss)
+        {
+            if (currentMode == GameMode.Infinite)
+            {
+                currentMisses++;
+                OnMissesChanged?.Invoke(currentMisses, maxMisses);
+
+                if (currentMisses >= maxMisses)
+                {
+                    EndGame();
                 }
             }
         }
