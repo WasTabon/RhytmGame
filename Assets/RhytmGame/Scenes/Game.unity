@@ -3123,7 +3123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressText: {fileID: 203943718}
-  gameModeController: {fileID: 0}
+  gameModeController: {fileID: 184541822}
   progressFormat: '{0} / {1}'
   punchScale: 1.2
   punchDuration: 0.2

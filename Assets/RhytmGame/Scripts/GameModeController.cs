@@ -138,6 +138,8 @@ public class GameModeController : MonoBehaviour
                 break;
         }
 
+         Debug.Log("Game started in game mode controller", this);
+        
         OnGameStart?.Invoke();
     }
 
@@ -233,6 +235,7 @@ public class GameModeController : MonoBehaviour
         }
 
         SaveLevelProgress();
+        SaveLevelResult();
 
         OnLevelComplete?.Invoke();
     }
@@ -244,6 +247,11 @@ public class GameModeController : MonoBehaviour
         if (lockMechanic != null)
         {
             lockMechanic.SetCanLock(false);
+        }
+
+        if (currentMode == GameMode.Levels)
+        {
+            SaveLevelResult();
         }
 
         OnGameOver?.Invoke();
@@ -260,6 +268,14 @@ public class GameModeController : MonoBehaviour
             PlayerPrefs.SetInt("UnlockedLevel", currentLevelIndex + 1);
             PlayerPrefs.Save();
         }
+    }
+
+    private void SaveLevelResult()
+    {
+        if (currentMode != GameMode.Levels || scoreManager == null)
+            return;
+
+        LevelSelectUI.SaveLevelResult(currentLevelIndex, scoreManager.CurrentScore, scoreManager.MaxCombo);
     }
 
     public void RestartGame()

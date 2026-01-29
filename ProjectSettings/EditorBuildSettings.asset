@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/RhytmGame/Scenes/MainLevel.unity
+    path: Assets/RhytmGame/Scenes/MainMenu.unity
     guid: 06b1861bb7868f3469438bb46d4574b1
   - enabled: 1
     path: Assets/RhytmGame/Scenes/Game.unity

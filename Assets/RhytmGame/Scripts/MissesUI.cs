@@ -36,36 +36,28 @@ public class MissesUI : MonoBehaviour
 
     private void Start()
     {
-        if (gameModeController == null)
-            gameModeController = GameModeController.Instance;
+        gameModeController = GameModeController.Instance;
 
-        if (gameModeController != null)
-        {
-            gameModeController.OnMissesChanged += UpdateMisses;
-            gameModeController.OnGameStart += HandleGameStart;
-        }
-    }
-
-    private void OnDestroy()
-    {
-        if (gameModeController != null)
-        {
-            gameModeController.OnMissesChanged -= UpdateMisses;
-            gameModeController.OnGameStart -= HandleGameStart;
-        }
+        gameModeController.OnMissesChanged += UpdateMisses;
+        gameModeController.OnGameStart += HandleGameStart;
+        
+        Debug.Log($"{gameObject.name}: Init", this);
     }
 
     private void HandleGameStart()
     {
-        if (gameModeController != null && gameModeController.CurrentMode == GameMode.Infinite)
+        Debug.Log("Game start", this);
+        if (gameModeController.CurrentMode == GameMode.Infinite)
         {
             Show();
             UpdateDisplay(0, gameModeController.MaxMisses);
+            LevelProgressUI.Instance.Hide();
         }
         else
         {
             Hide();
         }
+        Debug.Log($"{gameObject.name}: mode: {gameModeController.CurrentMode}");
     }
 
     private void UpdateMisses(int current, int max)

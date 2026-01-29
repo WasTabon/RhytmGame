@@ -29,38 +29,28 @@ public class LevelProgressUI : MonoBehaviour
 
     private void Start()
     {
-        if (gameModeController == null)
-            gameModeController = GameModeController.Instance;
+        gameModeController = GameModeController.Instance;
 
-        if (gameModeController != null)
-        {
-            gameModeController.OnShapeProgress += UpdateProgress;
-            gameModeController.OnGameStart += HandleGameStart;
-        }
-
-        Hide();
-    }
-
-    private void OnDestroy()
-    {
-        if (gameModeController != null)
-        {
-            gameModeController.OnShapeProgress -= UpdateProgress;
-            gameModeController.OnGameStart -= HandleGameStart;
-        }
+        gameModeController.OnShapeProgress += UpdateProgress;
+        gameModeController.OnGameStart += HandleGameStart;
+        
+        Debug.Log($"{gameObject.name}: Init", this);
     }
 
     private void HandleGameStart()
     {
-        if (gameModeController != null && gameModeController.CurrentMode == GameMode.Levels)
+        Debug.Log("Game start", this);
+        if (gameModeController.CurrentMode == GameMode.Levels)
         {
             Show();
             UpdateProgress(0, gameModeController.ShapesRequired);
+            MissesUI.Instance.Hide();
         }
         else
         {
             Hide();
         }
+        Debug.Log($"{gameObject.name}: mode: {gameModeController.CurrentMode}");
     }
 
     private void UpdateProgress(int completed, int required)

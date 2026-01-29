@@ -8,6 +8,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private RectTransform mainMenuPanel;
     [SerializeField] private RectTransform modeSelectPanel;
     [SerializeField] private RectTransform settingsPanel;
+    [SerializeField] private LevelSelectUI levelSelectUI;
 
     [Header("Main Menu Buttons")]
     [SerializeField] private Button playButton;
@@ -36,6 +37,7 @@ public class MainMenuController : MonoBehaviour
         EnsureGameManager();
         SetupPositions();
         SetupButtons();
+        SetupLevelSelect();
         ShowMainMenu(false);
     }
 
@@ -64,7 +66,7 @@ public class MainMenuController : MonoBehaviour
         settingsButton.onClick.AddListener(OnSettingsClicked);
         quitButton.onClick.AddListener(OnQuitClicked);
 
-        levelsButton.onClick.AddListener(() => OnModeSelected(GameMode.Levels));
+        levelsButton.onClick.AddListener(OnLevelsClicked);
         infiniteButton.onClick.AddListener(() => OnModeSelected(GameMode.Infinite));
         timeAttackButton.onClick.AddListener(() => OnModeSelected(GameMode.TimeAttack));
         modeBackButton.onClick.AddListener(OnModeBackClicked);
@@ -79,6 +81,14 @@ public class MainMenuController : MonoBehaviour
         SetupButtonAnimation(timeAttackButton);
         SetupButtonAnimation(modeBackButton);
         SetupButtonAnimation(settingsBackButton);
+    }
+
+    private void SetupLevelSelect()
+    {
+        if (levelSelectUI != null)
+        {
+            levelSelectUI.OnBackClicked += OnLevelSelectBackClicked;
+        }
     }
 
     private void SetupButtonAnimation(Button button)
@@ -117,6 +127,21 @@ public class MainMenuController : MonoBehaviour
         {
             SceneLoader.Instance.QuitGame();
         }
+    }
+
+    private void OnLevelsClicked()
+    {
+        modeSelectPanel.DOAnchorPos(hiddenLeft, panelSlideDuration).SetEase(Ease.InCubic);
+        
+        if (levelSelectUI != null)
+        {
+            levelSelectUI.Show();
+        }
+    }
+
+    private void OnLevelSelectBackClicked()
+    {
+        modeSelectPanel.DOAnchorPos(centerPosition, panelSlideDuration).SetEase(Ease.OutCubic);
     }
 
     private void OnModeSelected(GameMode mode)

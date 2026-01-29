@@ -64,25 +64,5 @@ public class AudioAnalyzerDebugUI : MonoBehaviour
         debugLow = low;
         debugMid = mid;
         debugHigh = high;
-        
-        Debug.Log("Change");
-
-        if (lowBar != null)
-        {
-            Debug.Log("Fill low");
-            lowBar.fillAmount = low;
-        }
-
-        if (midBar != null)
-        {
-            Debug.Log("Fill mid");
-            midBar.fillAmount = mid;
-        }
-
-        if (highBar != null)
-        {
-            Debug.Log("Fill high");
-            highBar.fillAmount = high;
-        }
     }
 }
