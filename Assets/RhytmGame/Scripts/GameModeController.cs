@@ -123,22 +123,17 @@ public class GameModeController : MonoBehaviour
         switch (currentMode)
         {
             case GameMode.Infinite:
-                Debug.Log($"[GameModeController] Starting INFINITE mode (max {maxMisses} misses)");
                 StartInfiniteMode();
                 break;
 
             case GameMode.TimeAttack:
-                Debug.Log($"[GameModeController] Starting TIME ATTACK mode ({timeAttackDuration} sec)");
                 StartTimeAttackMode();
                 break;
 
             case GameMode.Levels:
-                Debug.Log($"[GameModeController] Starting LEVELS mode (Level {currentLevelIndex + 1})");
                 StartLevelMode();
                 break;
         }
-
-         Debug.Log("Game started in game mode controller", this);
         
         OnGameStart?.Invoke();
     }

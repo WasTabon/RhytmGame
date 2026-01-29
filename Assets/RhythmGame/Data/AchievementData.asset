@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b2cb1e6ca4c1145bfb27b0a90cb79e, type: 3}
+  m_Name: AchievementData
+  m_EditorClassIdentifier: 
+  achievements:
+  - id: first_perfect
+    title: First Blood
+    description: Get your first Perfect hit
+    category: 0
+    condition: 0
+    targetValue: 1
+    starReward: 1
+    icon: {fileID: 0}
+  - id: first_level
+    title: Baby Steps
+    description: Complete your first level
+    category: 0
+    condition: 1
+    targetValue: 1
+    starReward: 1
+    icon: {fileID: 0}
+  - id: shapes_10
+    title: Getting Started
+    description: Complete 10 shapes total
+    category: 0
+    condition: 4
+    targetValue: 10
+    starReward: 1
+    icon: {fileID: 0}
+  - id: combo_10
+    title: Combo Starter
+    description: Reach a combo of 10
+    category: 0
+    condition: 3
+    targetValue: 10
+    starReward: 1
+    icon: {fileID: 0}
+  - id: perfect_5_row
+    title: On Fire
+    description: Get 5 Perfects in a row
+    category: 1
+    condition: 2
+    targetValue: 5
+    starReward: 2
+    icon: {fileID: 0}
+  - id: perfect_10_row
+    title: Unstoppable
+    description: Get 10 Perfects in a row
+    category: 1
+    condition: 2
+    targetValue: 10
+    starReward: 3
+    icon: {fileID: 0}
+  - id: combo_25
+    title: Combo Master
+    description: Reach a combo of 25
+    category: 1
+    condition: 3
+    targetValue: 25
+    starReward: 2
+    icon: {fileID: 0}
+  - id: combo_50
+    title: Combo Legend
+    description: Reach a combo of 50
+    category: 1
+    condition: 3
+    targetValue: 50
+    starReward: 3
+    icon: {fileID: 0}
+  - id: no_miss_level
+    title: Flawless Run
+    description: Complete a level without missing
+    category: 1
+    condition: 10
+    targetValue: 1
+    starReward: 3
+    icon: {fileID: 0}
+  - id: perfect_accuracy
+    title: Perfectionist
+    description: Get 100% Perfect accuracy on a level
+    category: 1
+    condition: 9
+    targetValue: 1
+    starReward: 5
+    icon: {fileID: 0}
+  - id: shapes_50
+    title: Shape Shifter
+    description: Complete 50 shapes total
+    category: 2
+    condition: 4
+    targetValue: 50
+    starReward: 2
+    icon: {fileID: 0}
+  - id: shapes_100
+    title: Century
+    description: Complete 100 shapes total
+    category: 2
+    condition: 4
+    targetValue: 100
+    starReward: 3
+    icon: {fileID: 0}
+  - id: shapes_500
+    title: Shape Veteran
+    description: Complete 500 shapes total
+    category: 2
+    condition: 4
+    targetValue: 500
+    starReward: 5
+    icon: {fileID: 0}
+  - id: score_1000
+    title: Point Collector
+    description: Earn 1,000 total points
+    category: 2
+    condition: 5
+    targetValue: 1000
+    starReward: 1
+    icon: {fileID: 0}
+  - id: score_10000
+    title: Score Hunter
+    description: Earn 10,000 total points
+    category: 2
+    condition: 5
+    targetValue: 10000
+    starReward: 3
+    icon: {fileID: 0}
+  - id: playtime_30
+    title: Dedicated
+    description: Play for 30 minutes total
+    category: 2
+    condition: 11
+    targetValue: 30
+    starReward: 2
+    icon: {fileID: 0}
+  - id: levels_5
+    title: Rising Star
+    description: Complete 5 levels
+    category: 3
+    condition: 7
+    targetValue: 5
+    starReward: 2
+    icon: {fileID: 0}
+  - id: levels_15
+    title: Halfway There
+    description: Complete 15 levels
+    category: 3
+    condition: 7
+    targetValue: 15
+    starReward: 3
+    icon: {fileID: 0}
+  - id: levels_all
+    title: Champion
+    description: Complete all levels
+    category: 3
+    condition: 8
+    targetValue: 1
+    starReward: 10
+    icon: {fileID: 0}
+  - id: combo_100
+    title: Rhythm God
+    description: Reach a combo of 100
+    category: 3
+    condition: 3
+    targetValue: 100
+    starReward: 10
+    icon: {fileID: 0}

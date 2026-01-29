@@ -47,12 +47,10 @@ public class AudioAnalyzerDebugUI : MonoBehaviour
         {
             if (AudioAnalyzer.Instance != null)
             {
-                Debug.Log("Work");
                 audioAnalyzer = AudioAnalyzer.Instance;
             }
             else
             {
-                Debug.Log("Return");
                 return;
             }
         }
@@ -64,5 +62,20 @@ public class AudioAnalyzerDebugUI : MonoBehaviour
         debugLow = low;
         debugMid = mid;
         debugHigh = high;
+
+        if (lowBar != null)
+        {
+            lowBar.fillAmount = low;
+        }
+
+        if (midBar != null)
+        {
+            midBar.fillAmount = mid;
+        }
+
+        if (highBar != null)
+        {
+            highBar.fillAmount = high;
+        }
     }
 }
