@@ -33,9 +33,19 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
+        EnsureGameManager();
         SetupPositions();
         SetupButtons();
         ShowMainMenu(false);
+    }
+
+    private void EnsureGameManager()
+    {
+        if (GameManager.Instance == null)
+        {
+            GameObject go = new GameObject("GameManager");
+            go.AddComponent<GameManager>();
+        }
     }
 
     private void SetupPositions()
@@ -111,9 +121,13 @@ public class MainMenuController : MonoBehaviour
 
     private void OnModeSelected(GameMode mode)
     {
-        if (GameManager.Instance != null)
+        EnsureGameManager();
+
+        GameManager.Instance.SetGameMode(mode);
+
+        if (mode == GameMode.Levels)
         {
-            GameManager.Instance.SetGameMode(mode);
+            GameManager.Instance.SetSelectedLevel(0);
         }
 
         if (SceneLoader.Instance != null)

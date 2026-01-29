@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67becf3ef90362348a56e866aff94faa, type: 3}
+  m_Name: GameLevels
+  m_EditorClassIdentifier: 
+  levels:
+  - levelName: First Steps
+    shapesToComplete: 5
+  - levelName: Warm Up
+    shapesToComplete: 13
+  - levelName: Getting Started
+    shapesToComplete: 14
+  - levelName: Easy Breeze
+    shapesToComplete: 9
+  - levelName: Smooth Sailing
+    shapesToComplete: 10
+  - levelName: Rising Sun
+    shapesToComplete: 10
+  - levelName: Quick Feet
+    shapesToComplete: 7
+  - levelName: Steady Rhythm
+    shapesToComplete: 12
+  - levelName: Building Momentum
+    shapesToComplete: 8
+  - levelName: Finding Flow
+    shapesToComplete: 5
+  - levelName: Sharp Focus
+    shapesToComplete: 8
+  - levelName: Swift Motion
+    shapesToComplete: 8
+  - levelName: Growing Strong
+    shapesToComplete: 11
+  - levelName: Gaining Speed
+    shapesToComplete: 15
+  - levelName: Half Way
+    shapesToComplete: 12
+  - levelName: Breaking Through
+    shapesToComplete: 11
+  - levelName: Rising Challenge
+    shapesToComplete: 5
+  - levelName: Pushing Limits
+    shapesToComplete: 15
+  - levelName: High Gear
+    shapesToComplete: 8
+  - levelName: Full Throttle
+    shapesToComplete: 10
+  - levelName: No Mercy
+    shapesToComplete: 11
+  - levelName: Razor Edge
+    shapesToComplete: 11
+  - levelName: Lightning Fast
+    shapesToComplete: 5
+  - levelName: Storm Chaser
+    shapesToComplete: 13
+  - levelName: Fire Dance
+    shapesToComplete: 12
+  - levelName: Shadow Strike
+    shapesToComplete: 10
+  - levelName: Final Push
+    shapesToComplete: 14
+  - levelName: Ultimate Test
+    shapesToComplete: 13
+  - levelName: Grand Finale
+    shapesToComplete: 13
+  - levelName: Perfect Master
+    shapesToComplete: 5
