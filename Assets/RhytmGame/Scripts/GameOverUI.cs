@@ -31,6 +31,10 @@ public class GameOverUI : MonoBehaviour
     [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private SceneLoader sceneLoader;
 
+    private bool isShowing;
+
+    public bool IsShowing => isShowing;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -147,6 +151,8 @@ public class GameOverUI : MonoBehaviour
 
     private void ShowPanel()
     {
+        isShowing = true;
+
         if (panel != null)
         {
             panel.SetActive(true);
@@ -163,6 +169,8 @@ public class GameOverUI : MonoBehaviour
 
     public void Hide()
     {
+        isShowing = false;
+
         if (panel != null)
         {
             panel.SetActive(false);

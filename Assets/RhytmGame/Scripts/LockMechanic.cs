@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 
 public enum LockResult
@@ -49,10 +50,45 @@ public class LockMechanic : MonoBehaviour
         if (!canLock)
             return;
 
+        if (IsInputBlocked())
+            return;
+
         if (GetInputDown())
         {
             TryLock();
         }
+    }
+
+    private bool IsInputBlocked()
+    {
+        if (PauseMenu.Instance != null && PauseMenu.Instance.IsPaused)
+            return true;
+
+        if (GameOverUI.Instance != null && GameOverUI.Instance.IsShowing)
+            return true;
+
+        if (IsPointerOverUI())
+            return true;
+
+        return false;
+    }
+
+    private bool IsPointerOverUI()
+    {
+        if (EventSystem.current == null)
+            return false;
+
+        if (EventSystem.current.IsPointerOverGameObject())
+            return true;
+
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                return true;
+        }
+
+        return false;
     }
 
     private bool GetInputDown()
