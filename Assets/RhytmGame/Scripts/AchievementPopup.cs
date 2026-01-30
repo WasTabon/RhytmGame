@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 using DG.Tweening;
 using System.Collections.Generic;
@@ -39,6 +40,7 @@ public class AchievementPopup : MonoBehaviour
     private bool isShowing;
     private Vector2 hiddenPosition;
     private Vector2 shownPosition;
+    private bool isSubscribed;
 
     private void Awake()
     {
@@ -48,39 +50,63 @@ public class AchievementPopup : MonoBehaviour
             return;
         }
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(transform.root.gameObject);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Start()
     {
         SetupPositions();
         HideInstant();
-
-        if (AchievementManager.Instance != null)
-        {
-            AchievementManager.Instance.OnAchievementUnlocked += QueuePopup;
-            Debug.Log("ACHIEVEMENT IS NOT NULL!!!!!!!!!");
-        }
-        else
-        {
-            Debug.Log("ACHIEVEMENT IS NULL");
-        }
+        SubscribeToAchievements();
     }
 
     private void OnDestroy()
     {
+        UnsubscribeFromAchievements();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SubscribeToAchievements();
+    }
+
+    private void SubscribeToAchievements()
+    {
+        if (isSubscribed)
+            return;
+
+        if (AchievementManager.Instance != null)
+        {
+            AchievementManager.Instance.OnAchievementUnlocked += QueuePopup;
+            isSubscribed = true;
+        }
+    }
+
+    private void UnsubscribeFromAchievements()
+    {
+        if (!isSubscribed)
+            return;
+
         if (AchievementManager.Instance != null)
         {
             AchievementManager.Instance.OnAchievementUnlocked -= QueuePopup;
         }
+        isSubscribed = false;
     }
 
     public void LateSubscribe()
     {
-        if (AchievementManager.Instance != null)
-        {
-            AchievementManager.Instance.OnAchievementUnlocked += QueuePopup;
-        }
+        SubscribeToAchievements();
     }
 
     private void SetupPositions()
@@ -91,8 +117,6 @@ public class AchievementPopup : MonoBehaviour
 
     private void QueuePopup(AchievementInfo achievement)
     {
-        Debug.Log("POPUP");
-        
         pendingPopups.Enqueue(achievement);
 
         if (!isShowing)
@@ -170,6 +194,9 @@ public class AchievementPopup : MonoBehaviour
 
     private void AnimateShow()
     {
+        if (popupRect == null || canvasGroup == null)
+            return;
+
         popupRect.DOKill();
         canvasGroup.DOKill();
 
@@ -192,7 +219,6 @@ public class AchievementPopup : MonoBehaviour
 
         sequence.OnComplete(() =>
         {
-            gameObject.SetActive(false);
             ShowNextPopup();
         });
     }
@@ -204,12 +230,16 @@ public class AchievementPopup : MonoBehaviour
 
         if (canvasGroup != null)
             canvasGroup.alpha = 0f;
+
+        //gameObject.SetActive(false);
     }
 
     public void ForceHide()
     {
-        popupRect.DOKill();
-        canvasGroup.DOKill();
+        if (popupRect != null)
+            popupRect.DOKill();
+        if (canvasGroup != null)
+            canvasGroup.DOKill();
         HideInstant();
         isShowing = false;
         ShowNextPopup();

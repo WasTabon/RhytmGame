@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 
@@ -39,21 +40,51 @@ public class AchievementManager : MonoBehaviour
         LoadUnlockedAchievements();
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start()
+    {
+        SubscribeToEvents();
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UnsubscribeFromEvents();
+        SubscribeToEvents();
+    }
+
+    private void SubscribeToEvents()
     {
         if (statsManager == null)
             statsManager = StatsManager.Instance;
 
-        statsManager.OnStatChanged += CheckAchievements;
-        Debug.Log("STATE CHANGED SUBSCRIBE ");
+        if (statsManager != null)
+        {
+            statsManager.OnStatChanged -= CheckAchievements;
+            statsManager.OnStatChanged += CheckAchievements;
+        }
 
         if (LockMechanic.Instance != null)
         {
+            LockMechanic.Instance.OnLock -= HandleLock;
             LockMechanic.Instance.OnLock += HandleLock;
         }
     }
 
-    private void OnDestroy()
+    private void UnsubscribeFromEvents()
     {
         if (statsManager != null)
         {
@@ -68,18 +99,8 @@ public class AchievementManager : MonoBehaviour
 
     public void LateSubscribe()
     {
-        if (statsManager == null)
-            statsManager = StatsManager.Instance;
-
-        if (statsManager != null)
-        {
-            statsManager.OnStatChanged += CheckAchievements;
-        }
-
-        if (LockMechanic.Instance != null)
-        {
-            LockMechanic.Instance.OnLock += HandleLock;
-        }
+        UnsubscribeFromEvents();
+        SubscribeToEvents();
     }
 
     private void HandleLock(LockResult result)
@@ -105,7 +126,6 @@ public class AchievementManager : MonoBehaviour
 
             if (shouldUnlock)
             {
-                Debug.Log("SHOULD UNLCOK");
                 UnlockAchievement(achievement);
             }
         }
@@ -163,10 +183,7 @@ public class AchievementManager : MonoBehaviour
     private void UnlockAchievement(AchievementInfo achievement)
     {
         if (unlockedAchievements.Contains(achievement.id))
-        {
-            Debug.Log("return");
             return;
-        }
 
         unlockedAchievements.Add(achievement.id);
         unlockedCount++;
@@ -290,6 +307,7 @@ public class AchievementManager : MonoBehaviour
         if (Instance != null)
         {
             Instance.LoadUnlockedAchievements();
+            Instance.firstPerfectTriggered = false;
         }
     }
 }
