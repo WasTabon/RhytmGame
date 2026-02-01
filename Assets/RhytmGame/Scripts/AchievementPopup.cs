@@ -147,7 +147,7 @@ public class AchievementPopup : MonoBehaviour
             descriptionText.text = achievement.description;
 
         if (starsText != null)
-            starsText.text = $"+{achievement.starReward} ★";
+            starsText.text = $"+{achievement.starReward}";
 
         if (iconImage != null)
         {

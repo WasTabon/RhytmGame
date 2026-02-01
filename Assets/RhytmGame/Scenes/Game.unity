@@ -787,7 +787,7 @@ MonoBehaviour:
   enableScaleReaction: 1
   scaleAmount: 0.5
   enableDirectionChange: 1
-  highThreshold: 0.7
+  highThreshold: 0.95
   directionCooldown: 1
   currentSpeed: 45.61252
   currentScale: 0.9617393
