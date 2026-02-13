@@ -919,7 +919,13 @@ PlayerSettings:
   windowsGamepadBackendHint: 0
   cloudProjectId: eed351cd-ebde-4877-886f-93b5dc28509f
   framebufferDepthMemorylessMode: 0
-  qualitySettingsNames: []
+  qualitySettingsNames:
+  - Very Low
+  - Low
+  - Medium
+  - High
+  - Very High
+  - Ultra
   projectName: RhytmGame
   organizationId: unity_7uso5rss2sjfeq
   cloudEnabled: 0
